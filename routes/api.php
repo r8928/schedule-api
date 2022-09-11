@@ -15,4 +15,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('teachers/dropdown', [TeacherController::class, 'teachersDropdown']);
 Route::apiResource('teachers', TeacherController::class);

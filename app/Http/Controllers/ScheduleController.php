@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreTeacherRequest;
-use App\Http\Resources\TeachersEdit;
-use App\Http\Resources\TeachersList;
-use App\Http\Resources\TeachersListDropdown;
-use App\Models\Teacher;
+use App\Http\Requests\StoreScheduleRequest;
+use App\Http\Resources\SchedulesList;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 
-class TeacherController extends Controller
+class ScheduleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,20 +16,10 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        $teachers = Teacher::all();
+        $schedules = Schedule::all();
 
         return response()->json([
-            'data' => TeachersList::collection($teachers),
-        ]);
-    }
-
-
-    public function teachersDropdown()
-    {
-        $teachers = Teacher::all();
-
-        return response()->json([
-            'data' => TeachersListDropdown::collection($teachers),
+            'data' => SchedulesList::collection($schedules),
         ]);
     }
 
@@ -41,12 +29,12 @@ class TeacherController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTeacherRequest $request)
+    public function store(StoreScheduleRequest $request)
     {
-        $teacher = (new Teacher())->createTeacher($request->all());
+        $schedule = (new Schedule())->createSchedule($request->all());
 
         return response()->json([
-            'data' => $teacher,
+            'data' => $schedule,
         ]);
     }
 
@@ -58,25 +46,26 @@ class TeacherController extends Controller
      */
     public function show($id)
     {
-        $teacher = Teacher::find($id);
+        $schedule = Schedule::find($id);
 
         return response()->json([
-            'data' => TeachersEdit::make($teacher),
+            'data' => SchedulesEdit::make($schedule),
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $teacher = (new Teacher())->updateTeacher($request->all());
+        $schedule = (new Schedule())->updateSchedule($request->all());
 
         return response()->json([
-            'data' => $teacher,
+            'data' => $schedule,
         ]);
     }
 
@@ -88,5 +77,6 @@ class TeacherController extends Controller
      */
     public function destroy($id)
     {
+        //
     }
 }
